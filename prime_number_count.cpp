@@ -1,13 +1,12 @@
 /*-- prime_count_serial.cpp-----------------------------------------------------------
    This file implements a program that fills an arry with numbers and 
    then counts the prime numbers in the array
-
-   Student: Alex Belote
 -------------------------------------------------------------------------*/
 
 #include <iostream>
 #include <chrono>
 #include <cmath>
+#include <omp.h>
 using namespace std;
 
 // gen_numbers
@@ -71,6 +70,7 @@ int main() {
 	gen_numbers(numbers, n);
 
 	cout << "Counting primes..." << endl;
+
 	// Count primes, use chrono to time the function
 	auto start = chrono::steady_clock::now();
 	int count = count_prime_serial(numbers, n);
@@ -91,7 +91,7 @@ int main() {
 	double compute_time = chrono::duration<double>(end - start).count();
 	cout << "Total number of primes = " << count << endl;
 	cout << "Total computation time = " << compute_time << endl;
-
+	cout << "Threads used: " << omp_get_max_threads() << endl; 
     return 0;
 }
 
