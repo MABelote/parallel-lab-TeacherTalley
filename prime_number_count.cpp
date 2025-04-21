@@ -46,7 +46,7 @@ int count_prime_serial(long int numbers[], long int how_many)
 }
 
 
-int count_prime_numbers(long int numbers[], long int how_many) {
+int count_prime_parallel(long int numbers[], long int how_many) {
 	int count = 0;
 #pragma omp parallel for reduction(+:count)
 	for (int i = 0; i < how_many; i++) {
@@ -78,7 +78,7 @@ int main() {
 
 	cout << "Counting primes (parallel proccessing)..." << endl;
 	auto start_parallel = chrono::steady_clock::now();
-	int count_parallel = count_prime_numbers(numbers, n);
+	int count_parallel = count_prime_parallel(numbers, n);
 	auto end_parallel = chrono::steady_clock::now();
 
 	double compute_time_parallel = chrono::duration<double>(end_parallel - start_parallel).count();
